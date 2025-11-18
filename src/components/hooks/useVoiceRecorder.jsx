@@ -9,7 +9,11 @@ import { useRef, useState } from "react";
  *
  * states: "listening" | "transcribing" | "thinking" | "speaking" | "finished" | "error" | "idle"
  */
-export default function useVoiceRecorder({ lang = "en", onFinalText, onPopupState }) {
+export default function useVoiceRecorder({
+  lang = "en",
+  onFinalText,
+  onPopupState,
+}) {
   const [recording, setRecording] = useState(false);
   const [status, setStatus] = useState("idle");
 
@@ -19,9 +23,9 @@ export default function useVoiceRecorder({ lang = "en", onFinalText, onPopupStat
   const timeoutRef = useRef(null);
 
   const MAX_MS = 12000;
-  const STT_API_URL = `${process.env.BACKEND_URL}/audio/stt`;
-  const RAG_API_URL = `${process.env.BACKEND_URL}/rag/query`;
-  const TTS_API_URL = `${process.env.BACKEND_URL}/audio/tts`;
+  const STT_API_URL = `${import.meta.env.VITE_BACKEND_URL}audio/stt`;
+  const RAG_API_URL = `${import.meta.env.VITE_BACKEND_URL}rag/query`;
+  const TTS_API_URL = `${import.meta.env.VITE_BACKEND_URL}audio/tts`;
 
   // safe caller for popup updates
   const safePopup = (state, payload = {}) => {
@@ -103,7 +107,10 @@ export default function useVoiceRecorder({ lang = "en", onFinalText, onPopupStat
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       timeoutRef.current = setTimeout(() => {
         try {
-          if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
+          if (
+            mediaRecorderRef.current &&
+            mediaRecorderRef.current.state !== "inactive"
+          ) {
             console.debug("[recorder] timeout stopping mediaRecorder");
             mediaRecorderRef.current.stop();
           }
@@ -126,7 +133,10 @@ export default function useVoiceRecorder({ lang = "en", onFinalText, onPopupStat
       timeoutRef.current = null;
     }
     try {
-      if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
+      if (
+        mediaRecorderRef.current &&
+        mediaRecorderRef.current.state !== "inactive"
+      ) {
         mediaRecorderRef.current.stop();
       } else {
         console.debug("[recorder] mediaRecorder already inactive or not set");
@@ -195,7 +205,10 @@ export default function useVoiceRecorder({ lang = "en", onFinalText, onPopupStat
         throw new Error("RAG failed: " + res.status + " " + txt);
       }
       const data = await res.json();
-      const ragAnswer = data.text ?? data.rag_answer ?? (typeof data === "string" ? data : JSON.stringify(data));
+      const ragAnswer =
+        data.text ??
+        data.rag_answer ??
+        (typeof data === "string" ? data : JSON.stringify(data));
       console.debug("[recorder] RAG answer:", ragAnswer);
 
       // notify parent
