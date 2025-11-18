@@ -1,0 +1,82 @@
+# Node / NPM
+node_modules/
+npm-debug.log*
+yarn-error.log*
+package-lock.json
+.pnpm-debug.log
+
+# build output
+dist/
+build/
+out/
+.vite
+
+# Vite / IDE / editor
+.vscode/
+.idea/
+.DS_Store
+
+# Local env files (NEVER commit secrets)
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.production.local
+env.*.local
+
+# System files
+Thumbs.db
+ehthumbs.db
+
+# Logs
+logs
+*.log
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Python virtualenvs (if backend included)
+.venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.py[cod]
+
+# Visual Studio Code workspace storage
+.vscode/*
+
+# JetBrains
+.idea/
+
+# Test coverage
+coverage/
+*.lcov
+
+# OS generated files
+*.swp
+
+# Optional: local build artifacts (if you add)
+dist-*
+
+# Optional: security/key files
+*.pem
+*.key
+
+# Optional: local database / tools
+*.sqlite
+*.db
+
+# Ignore bundled files built by some tools
+*.tgz
+
+# GitHub Codespaces
+.devcontainer/
+
+# temporary files
+tmp/
+temp/
