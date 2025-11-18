@@ -19,9 +19,9 @@ export default function useVoiceRecorder({ lang = "en", onFinalText, onPopupStat
   const timeoutRef = useRef(null);
 
   const MAX_MS = 12000;
-  const STT_API_URL = "http://127.0.0.1:5000/audio/stt";
-  const RAG_API_URL = "http://127.0.0.1:5000/rag/query";
-  const TTS_API_URL = "http://127.0.0.1:5000/audio/tts";
+  const STT_API_URL = `${process.env.BACKEND_URL}/audio/stt`;
+  const RAG_API_URL = `${process.env.BACKEND_URL}/rag/query`;
+  const TTS_API_URL = `${process.env.BACKEND_URL}/audio/tts`;
 
   // safe caller for popup updates
   const safePopup = (state, payload = {}) => {
